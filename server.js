@@ -2,15 +2,14 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var pg = require('pg');
 var pool = new pg.Pool({
-  database: 'todo',
-  user: 'postgres',
-  password: 1234,
-  //connectionString: process.env.DATABASE_URL
+  // database: 'todo',
+  // user: 'postgres',
+  // password: 1234,
+  connectionString: process.env.DATABASE_URL
 });
 
 var app = express();
 app.set('port', (process.env.PORT || 5000));
-//app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
