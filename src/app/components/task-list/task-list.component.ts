@@ -7,11 +7,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TaskListComponent implements OnInit {
 
-  @Input() tasks;
+  @Input() tasks = [];
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleControls(task) {
+    this.tasks.map(item => {
+      item.selected = item.id === task.id;
+    });
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { TaskService } from './../../services/task.service';
 @Component({
@@ -11,6 +11,7 @@ export class TaskAddComponent implements OnInit {
   task = {
     name: ''
   };
+  @Output() updateTaskList = new EventEmitter<null>();
 
   constructor(private taskService: TaskService) {
   }
@@ -23,6 +24,7 @@ export class TaskAddComponent implements OnInit {
       response => {
         if (response.results) {
           this.task.name = '';
+          this.updateTaskList.emit();
         }
       }
     );

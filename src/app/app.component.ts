@@ -12,6 +12,10 @@ export class AppComponent {
   tasks = [];
 
   constructor(private taskService: TaskService) {
+    this.getAllTasks();
+  }
+
+  getAllTasks() {
     this.taskService.getAllTasks().subscribe(
       response => {
         if (response) {
@@ -19,5 +23,9 @@ export class AppComponent {
         }
       }
     );
+  }
+
+  onAdd() {
+    this.getAllTasks();
   }
 }
