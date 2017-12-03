@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var pg = require('pg');
+var pool = new pg.Pool();
 
 var app = express();
 app.set('port', (process.env.PORT || 5000));
@@ -18,7 +19,7 @@ app.get('/', function(request, response) {
 });
 
 app.get('/db', function (request, response) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+  pool.connect(process.env.DATABASE_URL, function(err, client, done) {
     client.query('SELECT * FROM test_table', function(err, result) {
       done();
       if (err)
