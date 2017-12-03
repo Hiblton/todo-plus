@@ -50,8 +50,8 @@ app.post("/api/tasks", function(request, response) {
   }
 
   const queryObj = {
-    text: 'INSERT INTO test_table(id, name) VALUES($1, $2)',
-    values: [request.body.id, request.body.name]
+    text: 'INSERT INTO test_table(name) VALUES($1)',
+    values: [request.body.name]
   }
 
   pool.connect(function(err, client, done) {
