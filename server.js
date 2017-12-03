@@ -18,8 +18,10 @@ app.get('/', function(request, response) {
     response.render('dist/index');
 });
 
+// process.env.DATABASE_URL
+
 app.get('/db', function (request, response) {
-  pool.connect(process.env.DATABASE_URL, function(err, client, done) {
+  pool.connect(function(err, client, done) {
     client.query('SELECT * FROM test_table', function(err, result) {
       done();
       if (err)
