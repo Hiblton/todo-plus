@@ -1,13 +1,16 @@
-ul {
+ol {
   margin: 0;
-  padding: 5px;
+  padding-left: 20px;
 }
 
 li {
   cursor: pointer;
-  list-style: none;
   margin: 0;
   padding: 5px;
+}
+
+li.status-done {
+  text-decoration: line-through;
 }
 
 li span {

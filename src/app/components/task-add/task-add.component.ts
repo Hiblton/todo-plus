@@ -12,6 +12,7 @@ export class TaskAddComponent implements OnInit {
     name: ''
   };
   @Output() updateTaskList = new EventEmitter<null>();
+  sending: boolean;
 
   constructor(private taskService: TaskService) {
   }
@@ -20,12 +21,14 @@ export class TaskAddComponent implements OnInit {
   }
 
   onClick() {
+    this.sending = true;
     this.taskService.addTask(this.task).subscribe(
       response => {
         if (response.results) {
           this.task.name = '';
           this.updateTaskList.emit();
         }
+        this.sending = false;
       }
     );
   }

@@ -25,7 +25,7 @@ export class AppComponent {
     );
   }
 
-  onAdd() {
+  updateTaskList() {
     this.getAllTasks();
   }
 }

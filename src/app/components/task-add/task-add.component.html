@@ -1,5 +1,5 @@
 <h3>
   Add Task:
 </h3>
-<input type="text" placeholder="Type here.." [(ngModel)]="task.name" />
-<button (click)="onClick()">ADD</button>
+<input type="text" placeholder="Type here.." [(ngModel)]="task.name" [disabled]="sending"/>
+<button (click)="onClick()" [disabled]="sending">ADD</button>

@@ -1,13 +1,13 @@
 <h3 *ngIf="tasks.length">
   Tasks:
 </h3>
-<ul *ngFor="let task of tasks">
-  <li (click)="toggleControls(task)" [class.selected]="task.selected">
-    {{ task.id }}. {{ task.name }}
+<ol>
+  <li *ngFor="let task of tasks" (click)="toggleControls(task)" [class.selected]="task.selected" [class.status-done]="task.done">
+    {{ task.name }}
     <span *ngIf="task.selected">
-      <i class="material-icons delete">delete_forever</i>
-      <i class="material-icons edit">build</i>
-      <i class="material-icons done">done</i>
+      <i class="material-icons delete" (click)="deleteTask(task)">delete_forever</i>
+      <i class="material-icons edit" (click)="editTask(task)">build</i>
+      <i class="material-icons done" (click)="markAsDone(task)">done</i>
     </span>
   </li>
-</ul>
+</ol>

@@ -1,3 +1,3 @@
-<app-task-add (updateTaskList)="onAdd()"></app-task-add>
+<app-task-add (updateTaskList)="updateTaskList()"></app-task-add>
 
-<app-task-list [tasks]="tasks"></app-task-list>
+<app-task-list (updateTaskList)="updateTaskList()" [tasks]="tasks"></app-task-list>
