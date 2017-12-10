@@ -1,5 +1,31 @@
 # TodoPlus
 
+#Documentation
+
+`npm install && npm start` to run locally on `http://localhost:5000/`
+`git push heroku master` to run on heroku hosting
+
+API methods:
+GET     `/api/tasks/`        //get all tasks
+POST    `/api/tasks/`        //creates a new task
+GET     `/api/tasks/{id}`    //get details of a task by id
+POST    `/api/tasks/{id}`    //marks a task as done by id
+PUT     `/api/tasks/{id}`    //edites a task by id
+DELETE  `/api/tasks/{id}`    //deletes a task by id
+
+Database schema:
+```
+CREATE DATABASE todo;
+CREATE TABLE tasks (
+    id              SERIAL PRIMARY KEY NOT NULL,
+    name            TEXT NOT NULL,
+    is_done         BOOLEAN,                    -- marked as done
+    priority        SMALLINT,                   -- from 1 to 3
+    date            DATE
+);
+```
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.5.
 
 ## Development server

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './../services/api.service';
+import { environment } from './../../environments/environment';
 
-const API_TASKS = 'api/tasks/';
+const API_TASKS = environment.domain + 'api/tasks/';
 
 @Injectable()
 export class TaskService {

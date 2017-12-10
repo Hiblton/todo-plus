@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChildren, QueryList, ElementRef } from '@angular/core';
 
 import { TaskService } from './../../services/task.service';
+import { Task } from './../../models/task'
+
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
@@ -9,10 +11,12 @@ import { TaskService } from './../../services/task.service';
 export class TaskListComponent implements OnInit {
 
   //todo Task model;
-  @Input() tasks = [];
+  @Input() tasks: Array<Task> = [];
   @Output() updateTaskList = new EventEmitter<null>();
+  @ViewChildren('editable_field') editableFields: QueryList<ElementRef>;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {
+  }
 
   ngOnInit() {
   }
@@ -20,15 +24,15 @@ export class TaskListComponent implements OnInit {
   toggleControls(task) {
     this.tasks.map(item => {
       item.selected = item.id === task.id;
+      item.showControls = item.id === task.id;
     });
   }
 
-  markAsDone(task) {
+  markAsDone(event, task) {
     //todo common task validation
     if (!task.id) {
       return;
     }
-    task.name += ' done!';
     this.taskService.markAsDone(task).subscribe(
       response => {
         if (response.results) {
@@ -38,21 +42,61 @@ export class TaskListComponent implements OnInit {
     );
   }
 
-  editTask(task) {
+  addTask() {
+    this.tasks.push(new Task());
+    setTimeout(() => {
+      this.editableFields.last.nativeElement.contentEditable = true;
+      this.editableFields.last.nativeElement.focus();
+      this.editableFields.last.nativeElement.onblur = () => {
+        let title = this.editableFields.last.nativeElement.textContent.trim();
+        if (!title) {
+          this.tasks.pop();
+          return;
+        }
+        let query = {
+          name: title
+        };
+        this.taskService.addTask(query).subscribe(
+          response => {
+            if (response.results) {
+              this.updateTaskList.emit();
+            }
+          }
+        );
+      };
+    }, 0);
+  }
+
+  editTask(event, task, index) {
+    event.stopPropagation();
     if (!task.id) {
       return;
     }
-    task.name += ' edited';
-    this.taskService.editTask(task).subscribe(
-      response => {
-        if (response.results) {
-          this.updateTaskList.emit();
-        }
+    task.showControls = false;
+    let field = this.editableFields.toArray();
+    field[index].nativeElement.contentEditable = true;
+    field[index].nativeElement.focus();
+    field[index].nativeElement.onblur = () => {
+      let title = field[index].nativeElement.textContent.trim();
+      if (!title) {
+        this.deleteTask(event, task);
+        return;
       }
-    );
+      let query = {
+        id: task.id,
+        name: title
+      };
+      this.taskService.editTask(query).subscribe(
+        response => {
+          if (response.results) {
+            this.updateTaskList.emit();
+          }
+        }
+      );
+    };
   }
 
-  deleteTask(task) {
+  deleteTask(event, task) {
     if (!task.id) {
       return;
     }
