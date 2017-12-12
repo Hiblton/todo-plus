@@ -45,6 +45,7 @@ export class TaskListComponent implements OnInit {
   addTask() {
     this.tasks.push(new Task());
     setTimeout(() => {
+      this.editableFields.last.nativeElement.textContent = ' ';
       this.editableFields.last.nativeElement.contentEditable = true;
       this.editableFields.last.nativeElement.focus();
       this.editableFields.last.nativeElement.onblur = () => {
