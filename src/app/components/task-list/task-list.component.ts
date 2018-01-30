@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChildren, QueryList, ElementRef } from '@angular/core';
 
 import { TaskService } from './../../services/task.service';
-import { Task } from './../../models/task'
+import { Task } from './../../models/task';
 
 @Component({
   selector: 'app-task-list',
@@ -10,7 +10,6 @@ import { Task } from './../../models/task'
 })
 export class TaskListComponent implements OnInit {
 
-  //todo Task model;
   @Input() tasks: Array<Task> = [];
   @Output() updateTaskList = new EventEmitter<null>();
   @ViewChildren('editable_field') editableFields: QueryList<ElementRef>;
@@ -29,7 +28,7 @@ export class TaskListComponent implements OnInit {
   }
 
   markAsDone(event, task) {
-    //todo common task validation
+    // todo common task validation
     if (!task.id) {
       return;
     }
@@ -48,12 +47,12 @@ export class TaskListComponent implements OnInit {
       this.editableFields.last.nativeElement.contentEditable = true;
       this.editableFields.last.nativeElement.focus();
       this.editableFields.last.nativeElement.onblur = () => {
-        let title = this.editableFields.last.nativeElement.textContent.trim();
+        const title = this.editableFields.last.nativeElement.textContent.trim();
         if (!title) {
           this.tasks.pop();
           return;
         }
-        let query = {
+        const query = {
           name: title
         };
         this.taskService.addTask(query).subscribe(
@@ -73,16 +72,16 @@ export class TaskListComponent implements OnInit {
       return;
     }
     task.showControls = false;
-    let field = this.editableFields.toArray();
+    const field = this.editableFields.toArray();
     field[index].nativeElement.contentEditable = true;
     field[index].nativeElement.focus();
     field[index].nativeElement.onblur = () => {
-      let title = field[index].nativeElement.textContent.trim();
+      const title = field[index].nativeElement.textContent.trim();
       if (!title) {
         this.deleteTask(event, task);
         return;
       }
-      let query = {
+      const query = {
         id: task.id,
         name: title
       };
