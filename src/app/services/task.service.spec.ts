@@ -1,11 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { TaskService } from './task.service';
+import { ApiService } from './api.service';
 
 describe('TaskService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TaskService]
+      providers: [TaskService, {provide: ApiService, useValue: {}}]
     });
   });
 

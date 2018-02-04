@@ -7,8 +7,8 @@ describe('todo-plus App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display button', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.seeButton()).toBeTruthy();
   });
 });
