@@ -1,5 +1,5 @@
 <h3 *ngIf="tasks.length">
-  Current tasks:
+  Текущие задачи:
 </h3>
 <ol [dragula]='"bag-one"' [dragulaModel]='tasks'>
   <li *ngFor="let task of tasks; let index = index" (click)="toggleControls(task)" [class.selected]="task.selected" [class.status-done]="task.is_done">
@@ -10,5 +10,5 @@
       <i class="material-icons done" (click)="markAsDone($event, task)">done</i>
     </span>
   </li>
-  <button type="button" (click)="addTask()">+</button>
 </ol>
+<button type="button" (click)="addTask()">+</button>

@@ -1,0 +1,59 @@
+.container {
+  display: grid;
+}
+
+.day-item {
+  grid-row: 1 / 10;
+  border: 1px solid grey;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 20px;
+  background-color: lightskyblue;
+  color: white;
+}
+
+.day-item .day {
+  font-size: 32px;
+}
+
+.day-item .day-of-week_mobile {
+  display: none;
+}
+
+.day-item.active, .day-item:hover {
+  height: 120%;
+  width: 120%;
+  font-size: 120%;
+  position: relative;
+  right: 1%;
+}
+
+.day-item:hover {
+  z-index: 1;
+}
+
+.day-item.active:first-child, .day-item:hover:first-child {
+  left: 0;
+}
+
+.day-item.active:last-child, .day-item:hover:last-child {
+  right: 2.5%;
+}
+
+@media only screen and (max-width: 768px) {
+  .day-item .full-date {
+    display: none;
+  }
+
+  .day-item .day {
+    font-size: 22px;
+  }
+
+  .day-item .day-of-week {
+    display: none;
+  }
+
+  .day-item .day-of-week_mobile {
+    display: block;
+  }
+}

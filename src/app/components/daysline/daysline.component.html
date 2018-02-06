@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="day-item"
+       *ngFor="let item of daysList, let i = index"
+       [class.active]="item.active"
+       (click)="selectDay(i)">
+    <span class="full-date">{{ item.fullDate }}</span><br>
+    <span class="day">{{ item.day }}</span><br>
+    <span class="day-of-week">{{ item.dayOfWeek }}</span>
+    <span class="day-of-week_mobile">{{ item.shortDayOfWeek }}</span>
+  </div>
+</div>
