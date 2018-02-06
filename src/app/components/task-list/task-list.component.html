@@ -1,7 +1,7 @@
 <h3 *ngIf="tasks.length">
   Current tasks:
 </h3>
-<ol>
+<ol [dragula]='"bag-one"' [dragulaModel]='tasks'>
   <li *ngFor="let task of tasks; let index = index" (click)="toggleControls(task)" [class.selected]="task.selected" [class.status-done]="task.is_done">
     <span #editable_field>{{ task.name }}</span>
     <span *ngIf="task.showControls" class="control-bar">
