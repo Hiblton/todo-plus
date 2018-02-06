@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import {TaskService} from '../../services/task.service';
+import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
+
+import { TaskService } from '../../services/task.service';
+import { TaskListComponent } from '../task-list/task-list.component';
+import { AdDirective } from '../../directives/ad.directive';
 
 @Component({
   selector: 'app-layout',
@@ -8,9 +11,11 @@ import {TaskService} from '../../services/task.service';
 })
 export class LayoutComponent {
 
+  @ViewChild(AdDirective) adHost: AdDirective;
   tasks = [];
 
-  constructor(private taskService: TaskService) {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private taskService: TaskService) {
     this.getAllTasks();
   }
 
@@ -19,6 +24,7 @@ export class LayoutComponent {
       response => {
         if (response) {
           this.tasks = response.results;
+          this.loadComponent();
         }
       }
     );
@@ -26,6 +32,16 @@ export class LayoutComponent {
 
   updateTaskList() {
     this.getAllTasks();
+  }
+
+  loadComponent() {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(TaskListComponent);
+
+    const viewContainerRef = this.adHost.viewContainerRef;
+    viewContainerRef.clear();
+
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    componentRef.instance.tasks = this.tasks;
   }
 
 }

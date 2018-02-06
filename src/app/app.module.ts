@@ -10,13 +10,15 @@ import { TaskListComponent } from './components/task-list/task-list.component';
 
 import { TaskService } from './services/task.service';
 import { ApiService } from './services/api.service';
+import { AdDirective } from './directives/ad.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskListComponent,
     DayslineComponent,
-    LayoutComponent
+    LayoutComponent,
+    AdDirective
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,9 @@ import { ApiService } from './services/api.service';
   providers: [
     TaskService,
     ApiService
+  ],
+  entryComponents: [
+    TaskListComponent
   ],
   bootstrap: [AppComponent]
 })
